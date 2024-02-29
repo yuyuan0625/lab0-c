@@ -48,7 +48,7 @@ bool q_insert_head(struct list_head *head, char *s)
         return false;
     }
 
-    INIT_LIST_HEAD(&new->list);
+    // INIT_LIST_HEAD(&new->list);
     list_add(&new->list, head);
     return true;
 }
@@ -69,7 +69,7 @@ bool q_insert_tail(struct list_head *head, char *s)
         return false;
     }
 
-    INIT_LIST_HEAD(&new->list);
+    // INIT_LIST_HEAD(&new->list);
     list_add_tail(&new->list, head);
     return true;
 }
@@ -83,9 +83,8 @@ element_t *q_remove_head(struct list_head *head, char *sp, size_t bufsize)
     element_t *removed_element = list_first_entry(head, element_t, list);
     list_del(&removed_element->list);
     if (sp != NULL && bufsize > 0) {
-        int len = strlen(removed_element->value);
-        strncpy(sp, removed_element->value, len);
-        sp[len] = '\0';
+        strncpy(sp, removed_element->value, bufsize - 1);
+        sp[bufsize - 1] = '\0';
     }
     return removed_element;
 }
@@ -100,9 +99,8 @@ element_t *q_remove_tail(struct list_head *head, char *sp, size_t bufsize)
     element_t *removed_element = list_last_entry(head, element_t, list);
     list_del(&removed_element->list);
     if (sp != NULL && bufsize > 0) {
-        int len = strlen(removed_element->value);
-        strncpy(sp, removed_element->value, len);
-        sp[len] = '\0';
+        strncpy(sp, removed_element->value, bufsize - 1);
+        sp[bufsize - 1] = '\0';
     }
     return removed_element;
 }
