@@ -27,8 +27,7 @@ void q_free(struct list_head *head)
 {
     element_t *current, *safe;
     list_for_each_entry_safe (current, safe, head, list) {
-        free(current->value);
-        free(current);
+        q_release_element(current);
     }
     free(head);
 }
@@ -139,8 +138,7 @@ bool q_delete_mid(struct list_head *head)
     indir = &(*indir)->next;
     element_t *mid_element = list_entry(*indir, element_t, list);
     list_del(*indir);
-    free(mid_element->value);
-    free(mid_element);
+    q_release_element(mid_element);
     return true;
 }
 
