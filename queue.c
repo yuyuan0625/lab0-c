@@ -28,9 +28,9 @@ void q_free(struct list_head *head)
     if (!head)
         return;
     element_t *current, *safe;
-    list_for_each_entry_safe (current, safe, head, list) {
+    list_for_each_entry_safe (current, safe, head, list)
         q_release_element(current);
-    }
+
     free(head);
 }
 
@@ -67,7 +67,7 @@ bool q_insert_tail(struct list_head *head, char *s)
 /* Remove an element from head of queue */
 element_t *q_remove_head(struct list_head *head, char *sp, size_t bufsize)
 {
-    if (list_empty(head))
+    if (!head || list_empty(head))
         return NULL;
 
     element_t *removed_element = list_first_entry(head, element_t, list);
@@ -82,12 +82,12 @@ element_t *q_remove_head(struct list_head *head, char *sp, size_t bufsize)
 /* Remove an element from tail of queue */
 element_t *q_remove_tail(struct list_head *head, char *sp, size_t bufsize)
 {
-    if (list_empty(head)) {
+    if (!head || list_empty(head))
         return NULL;
-    }
 
     element_t *removed_element = list_last_entry(head, element_t, list);
     list_del(&removed_element->list);
+
     if (sp != NULL && bufsize > 0) {
         strncpy(sp, removed_element->value, bufsize - 1);
         sp[bufsize - 1] = '\0';
@@ -114,9 +114,9 @@ int q_size(struct list_head *head)
 bool q_delete_mid(struct list_head *head)
 {
     // https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/
-    if (head == NULL || list_empty(head)) {
+    if (head == NULL || list_empty(head))
         return false;
-    }
+
 
     struct list_head **indir = &head, *fast;
     for (fast = head->next; fast != head && fast->next != head;
