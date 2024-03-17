@@ -1,5 +1,6 @@
 #ifndef DUDECT_FIXTURE_H
 #define DUDECT_FIXTURE_H
+#define DUDECT_NUMBER_PERCENTILES (100)
 
 #include <stdbool.h>
 #include "constant.h"
