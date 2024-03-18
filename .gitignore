@@ -24,3 +24,6 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+
+massif.out.*
+traces/trace-sort.cmd
